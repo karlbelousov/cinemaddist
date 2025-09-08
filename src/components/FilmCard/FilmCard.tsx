@@ -1,7 +1,16 @@
+import { useAppDispatch } from "../../hooks";
+import { openFilmDetails } from "../../store/appReducer";
+
 function FilmCard() {
+  const dispatch = useAppDispatch();
+
+  const handleFilmCardLinkClick = () => {
+    dispatch(openFilmDetails());
+  }
+
   return (
     <article className="film-card">
-      <a className="film-card__link">
+      <a className="film-card__link" onClick={handleFilmCardLinkClick}>
         <h3 className="film-card__title">The Dance of Life</h3>
         <p className="film-card__rating">8.3</p>
         <p className="film-card__info">

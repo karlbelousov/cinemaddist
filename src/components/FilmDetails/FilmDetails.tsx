@@ -1,10 +1,19 @@
+import { useAppDispatch } from "../../hooks";
+import { closeFilmDetails } from "../../store/appReducer";
+
 function FilmDetais() {
+  const dispatch = useAppDispatch();
+
+  const handleFilmDetaisCloseButtonClick = () => {
+    dispatch(closeFilmDetails());
+  };
+
   return (
     <section className="film-details">
       <div className="film-details__inner">
         <div className="film-details__top-container">
           <div className="film-details__close">
-            <button className="film-details__close-btn" type="button">
+            <button className="film-details__close-btn" type="button" onClick={handleFilmDetaisCloseButtonClick}>
               close
             </button>
           </div>
