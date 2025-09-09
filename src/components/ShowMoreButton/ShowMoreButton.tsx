@@ -1,5 +1,20 @@
+import { useAppDispatch } from "../../hooks";
+import { incrementFilmCountPerStep } from "../../store/appReducer";
+
 function ShowMoreButton() {
-  return <button className="films-list__show-more">Show more</button>;
+  const dispatch = useAppDispatch();
+  const handleShowMoreButtonClick = () => {
+    dispatch(incrementFilmCountPerStep());
+  };
+
+  return (
+    <button
+      className="films-list__show-more"
+      onClick={handleShowMoreButtonClick}
+    >
+      Show more
+    </button>
+  );
 }
 
 export default ShowMoreButton;
