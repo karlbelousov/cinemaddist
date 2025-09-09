@@ -1,9 +1,12 @@
 import { useAppDispatch } from "../../hooks";
 import { openFilmDetails } from "../../store/appReducer";
+import { Film } from "../../types/film";
 
-function FilmCard() {
+function FilmCard(film: Film) {
+  const { film_info, comments } = film;
+  const { title, age_rating, release, runtime, genre, poster, description } = film_info;
+
   const dispatch = useAppDispatch();
-
   const handleFilmCardLinkClick = () => {
     dispatch(openFilmDetails());
   }
@@ -11,24 +14,22 @@ function FilmCard() {
   return (
     <article className="film-card">
       <a className="film-card__link" onClick={handleFilmCardLinkClick}>
-        <h3 className="film-card__title">The Dance of Life</h3>
-        <p className="film-card__rating">8.3</p>
+        <h3 className="film-card__title">{title}</h3>
+        <p className="film-card__rating">{age_rating}</p>
         <p className="film-card__info">
-          <span className="film-card__year">1929</span>
-          <span className="film-card__duration">1h 55m</span>
-          <span className="film-card__genre">Musical</span>
+          <span className="film-card__year">{release.date}</span>
+          <span className="film-card__duration">{runtime}</span>
+          <span className="film-card__genre">{genre[0]}</span>
         </p>
         <img
-          src="./images/posters/the-dance-of-life.jpg"
-          alt=""
+          src={poster}
+          alt={title}
           className="film-card__poster"
         />
         <p className="film-card__description">
-          Burlesque comic Ralph "Skid" Johnson (Skelly), and specialty dancer
-          Bonny Lee King (Carroll), end up together on a cold, rainy night at a
-          tr…
+          {description}
         </p>
-        <span className="film-card__comments">5 comments</span>
+        <span className="film-card__comments">{comments.length} comments</span>
       </a>
       <div className="film-card__controls">
         <button

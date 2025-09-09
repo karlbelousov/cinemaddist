@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useAppDispatch } from "../../hooks";
 import { closeFilmDetails } from "../../store/appReducer";
 
@@ -8,12 +9,30 @@ function FilmDetais() {
     dispatch(closeFilmDetails());
   };
 
+  const handleEscapeKeyDown = (event: KeyboardEvent) => {
+    if (event.key === "Escape") {
+      dispatch(closeFilmDetails());
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("keydown", handleEscapeKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleEscapeKeyDown);
+    };
+  }, []);
+
   return (
     <section className="film-details">
       <div className="film-details__inner">
         <div className="film-details__top-container">
           <div className="film-details__close">
-            <button className="film-details__close-btn" type="button" onClick={handleFilmDetaisCloseButtonClick}>
+            <button
+              className="film-details__close-btn"
+              type="button"
+              onClick={handleFilmDetaisCloseButtonClick}
+            >
               close
             </button>
           </div>
