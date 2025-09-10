@@ -1,15 +1,25 @@
 import { useAppDispatch } from "../../hooks";
 import { openFilmDetails } from "../../store/appReducer";
 import { Film } from "../../types/film";
+import formatMinutesToTime from "../../utils/formatMinutesToTime";
+import formatStringToYear from "../../utils/formatStringToYear";
 
 function FilmCard(film: Film) {
   const { film_info, comments } = film;
-  const { title, age_rating, release, runtime, genre, poster, description } = film_info;
+  const { title, age_rating, release, runtime, genre, poster, description } =
+    film_info;
+
+  const getDescriptionFormatted = (description: string) => {
+    if (description.length > 140) {
+      return description.slice(0, 139) + "...";
+    }
+    return description;
+  };
 
   const dispatch = useAppDispatch();
   const handleFilmCardLinkClick = () => {
     dispatch(openFilmDetails());
-  }
+  };
 
   return (
     <article className="film-card">
@@ -17,17 +27,17 @@ function FilmCard(film: Film) {
         <h3 className="film-card__title">{title}</h3>
         <p className="film-card__rating">{age_rating}</p>
         <p className="film-card__info">
-          <span className="film-card__year">{release.date}</span>
-          <span className="film-card__duration">{runtime}</span>
+          <span className="film-card__year">
+            {formatStringToYear(release.date)}
+          </span>
+          <span className="film-card__duration">
+            {formatMinutesToTime(runtime)}
+          </span>
           <span className="film-card__genre">{genre[0]}</span>
         </p>
-        <img
-          src={poster}
-          alt={title}
-          className="film-card__poster"
-        />
+        <img src={poster} alt={title} className="film-card__poster" />
         <p className="film-card__description">
-          {description}
+          {getDescriptionFormatted(description)}
         </p>
         <span className="film-card__comments">{comments.length} comments</span>
       </a>
