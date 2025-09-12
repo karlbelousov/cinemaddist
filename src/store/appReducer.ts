@@ -3,11 +3,13 @@ import { createSlice } from "@reduxjs/toolkit";
 export interface AppState {
   isOpenFilmDetails: boolean;
   filmCountPerStep: number;
+  selectedFilmId: number;
 }
 
 const initialState: AppState = {
   isOpenFilmDetails: false,
   filmCountPerStep: 5,
+  selectedFilmId: 0,
 };
 
 export const appReducer = createSlice({
@@ -25,10 +27,17 @@ export const appReducer = createSlice({
     incrementFilmCountPerStep(state) {
       state.filmCountPerStep += 5;
     },
+    addIdSelectedFilmId(state, action) {
+      state.selectedFilmId = action.payload;
+    },
   },
 });
 
-export const { openFilmDetails, closeFilmDetails, incrementFilmCountPerStep } =
-  appReducer.actions;
+export const {
+  openFilmDetails,
+  closeFilmDetails,
+  incrementFilmCountPerStep,
+  addIdSelectedFilmId,
+} = appReducer.actions;
 
 export default appReducer;

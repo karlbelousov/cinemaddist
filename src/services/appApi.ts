@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { authorization, baseUrl } from "../const";
 import { Film } from "../types/film";
+import { TComment } from "../types/comment";
 
 export const appApi = createApi({
     reducerPath: "api",
@@ -15,7 +16,10 @@ export const appApi = createApi({
         getFilms: builder.query<Film[], void>({
           query: () => "/movies"
         }),
+        getComments: builder.query<TComment[], number>({
+          query: (filmId) => `/comments/${filmId}`
+        })
       }),
 });
 
-export const { useGetFilmsQuery } = appApi;
+export const { useGetFilmsQuery, useGetCommentsQuery } = appApi;

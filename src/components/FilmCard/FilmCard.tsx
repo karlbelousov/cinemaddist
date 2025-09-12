@@ -1,12 +1,12 @@
 import { useAppDispatch } from "../../hooks";
-import { openFilmDetails } from "../../store/appReducer";
+import { addIdSelectedFilmId, openFilmDetails } from "../../store/appReducer";
 import { Film } from "../../types/film";
 import formatMinutesToTime from "../../utils/formatMinutesToTime";
 import formatStringToYear from "../../utils/formatStringToYear";
 
 function FilmCard(film: Film) {
-  const { film_info, comments } = film;
-  const { title, age_rating, release, runtime, genre, poster, description } =
+  const {id, film_info, comments } = film;
+  const { title, total_rating, release, runtime, genre, poster, description } =
     film_info;
 
   const getDescriptionFormatted = (description: string) => {
@@ -19,13 +19,14 @@ function FilmCard(film: Film) {
   const dispatch = useAppDispatch();
   const handleFilmCardLinkClick = () => {
     dispatch(openFilmDetails());
+    dispatch(addIdSelectedFilmId(id));
   };
 
   return (
     <article className="film-card">
       <a className="film-card__link" onClick={handleFilmCardLinkClick}>
         <h3 className="film-card__title">{title}</h3>
-        <p className="film-card__rating">{age_rating}</p>
+        <p className="film-card__rating">{total_rating}</p>
         <p className="film-card__info">
           <span className="film-card__year">
             {formatStringToYear(release.date)}
