@@ -4,12 +4,14 @@ export interface AppState {
   isOpenFilmDetails: boolean;
   filmCountPerStep: number;
   selectedFilmId: number;
+  activeFilter: string;
 }
 
 const initialState: AppState = {
   isOpenFilmDetails: false,
   filmCountPerStep: 5,
   selectedFilmId: 0,
+  activeFilter: "all"
 };
 
 export const appReducer = createSlice({
@@ -30,6 +32,9 @@ export const appReducer = createSlice({
     addIdSelectedFilmId(state, action) {
       state.selectedFilmId = action.payload;
     },
+    changeFilter(state, action) {
+      state.activeFilter = action.payload;
+    }
   },
 });
 
@@ -38,6 +43,7 @@ export const {
   closeFilmDetails,
   incrementFilmCountPerStep,
   addIdSelectedFilmId,
+  changeFilter
 } = appReducer.actions;
 
 export default appReducer;

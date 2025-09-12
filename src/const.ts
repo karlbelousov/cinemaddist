@@ -8,7 +8,14 @@ export const UserStatusValue = {
 };
 
 export const UserStatusTitle = {
-  NOVICE: 'Novice',
-  FAN: 'Fan',
-  MOVIE_BUFF: 'Movie Buff',
+  NOVICE: "Novice",
+  FAN: "Fan",
+  MOVIE_BUFF: "Movie Buff",
+};
+
+export const FilterType = {
+  ALL: 'all',
+  WATCHLIST: 'watchlist',
+  HISTORY: 'history',
+  FAVORITES: 'favorites',
 };

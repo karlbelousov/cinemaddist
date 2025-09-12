@@ -1,3 +1,5 @@
+import { FilterType } from "../../const";
+import { useAppSelector } from "../../hooks";
 import { Film } from "../../types/film";
 import FilmsEmpty from "../FilmsEmpty/FilmsEmpty";
 import FilmsList from "../FilmsList/FilmsList";
@@ -8,11 +10,29 @@ interface FilmsProps {
 }
 
 function Films({ allFilms }: FilmsProps) {
+  const activeFilter = useAppSelector((state) => state.app.activeFilter);
+  const filteredFilms = allFilms.filter((film) => {
+    switch (activeFilter) {
+      case FilterType.WATCHLIST:
+        return film.user_details.watchlist;
+      case FilterType.HISTORY:
+        return film.user_details.already_watched;
+      case FilterType.FAVORITES:
+        return film.user_details.favorite;
+      default:
+        return true;
+    }
+  });
+
   return (
     <>
-      {allFilms.length > 0 && <Sort />}
+      {filteredFilms.length > 0 && <Sort />}
       <section className="films">
-        {allFilms.length > 0 ? <FilmsList films={allFilms} /> : <FilmsEmpty />}
+        {filteredFilms.length > 0 ? (
+          <FilmsList films={filteredFilms} />
+        ) : (
+          <FilmsEmpty />
+        )}
         <FilmsList
           films={allFilms.slice(0, 2)}
           title="Top rated"
