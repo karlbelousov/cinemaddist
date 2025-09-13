@@ -1,17 +1,14 @@
 import { FilterType } from "../../const";
 import { useAppSelector } from "../../hooks";
-import { Film } from "../../types/film";
+import { useGetFilmsQuery } from "../../services/appApi";
 import FilmsEmpty from "../FilmsEmpty/FilmsEmpty";
 import FilmsList from "../FilmsList/FilmsList";
 import Sort from "../Sort/Sort";
 
-interface FilmsProps {
-  allFilms: Film[];
-}
-
-function Films({ allFilms }: FilmsProps) {
+function Films() {
+  const { data: allFilms, isLoading } = useGetFilmsQuery();
   const activeFilter = useAppSelector((state) => state.app.activeFilter);
-  const filteredFilms = allFilms.filter((film) => {
+  const filteredFilms = allFilms?.filter((film) => {
     switch (activeFilter) {
       case FilterType.WATCHLIST:
         return film.user_details.watchlist;
@@ -26,23 +23,32 @@ function Films({ allFilms }: FilmsProps) {
 
   return (
     <>
-      {filteredFilms.length > 0 && <Sort />}
+      {!isLoading && filteredFilms && filteredFilms?.length > 0 && <Sort />}
       <section className="films">
-        {filteredFilms.length > 0 ? (
-          <FilmsList films={filteredFilms} />
-        ) : (
-          <FilmsEmpty />
+        {isLoading && (
+          <section className="films-list">
+            <h2 className="films-list__title">Loading...</h2>
+          </section>
         )}
-        <FilmsList
-          films={allFilms.slice(0, 2)}
-          title="Top rated"
-          mode="extra"
-        />
-        <FilmsList
-          films={allFilms.slice(0, 2)}
-          title="Most commented"
-          mode="extra"
-        />
+        {!isLoading && (
+          <>
+            {filteredFilms && filteredFilms.length > 0 ? (
+              <FilmsList films={filteredFilms} />
+            ) : (
+              <FilmsEmpty />
+            )}
+            <FilmsList
+              films={allFilms.slice(0, 2)}
+              title="Top rated"
+              mode="extra"
+            />
+            <FilmsList
+              films={allFilms.slice(0, 2)}
+              title="Most commented"
+              mode="extra"
+            />
+          </>
+        )}
       </section>
     </>
   );
