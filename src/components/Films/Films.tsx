@@ -1,4 +1,4 @@
-import { FilterType } from "../../const";
+import { filters } from "../../const";
 import { useAppSelector } from "../../hooks";
 import { useGetFilmsQuery } from "../../services/appApi";
 import FilmsEmpty from "../FilmsEmpty/FilmsEmpty";
@@ -10,11 +10,11 @@ function Films() {
   const activeFilter = useAppSelector((state) => state.app.activeFilter);
   const filteredFilms = allFilms?.filter((film) => {
     switch (activeFilter) {
-      case FilterType.WATCHLIST:
+      case filters[1]:
         return film.user_details.watchlist;
-      case FilterType.HISTORY:
+      case filters[2]:
         return film.user_details.already_watched;
-      case FilterType.FAVORITES:
+      case filters[3]:
         return film.user_details.favorite;
       default:
         return true;

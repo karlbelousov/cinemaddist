@@ -1,0 +1,1 @@
+export type Filter = "all" | "watchlist" | "history" | "favorites";

@@ -34,6 +34,7 @@ export const appReducer = createSlice({
     },
     changeFilter(state, action) {
       state.activeFilter = action.payload;
+      state.filmCountPerStep = 5;
     }
   },
 });
