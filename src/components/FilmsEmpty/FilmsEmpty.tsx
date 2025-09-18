@@ -1,14 +1,12 @@
+import { useAppSelector } from "../../hooks";
+import getFilmsEmptyText from "../../utils/getFilmsEmptyText";
+
 function FilmsEmpty() {
+  const activeFilter = useAppSelector((state) => state.app.activeFilter);
+
   return (
     <section className="films-list">
-      <h2 className="films-list__title">There are no movies in our database</h2>
-      {/*
-            Значение отображаемого текста зависит от выбранного фильтра:
-            * All movies – 'There are no movies in our database'
-            * Watchlist — 'There are no movies to watch now';
-            * History — 'There are no watched movies now';
-            * Favorites — 'There are no favorite movies now'.
-        */}
+      <h2 className="films-list__title">{getFilmsEmptyText(activeFilter)}</h2>
     </section>
   );
 }
