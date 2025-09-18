@@ -4,13 +4,14 @@ import { changeFilter } from "../../store/appReducer";
 import { filters } from "../../const";
 import getCountFilteredFilms from "../../utils/getCountFilteredFilms";
 import { useGetFilmsQuery } from "../../services/appApi";
+import { Filter } from "../../types/filter";
 
 function MainNavigation() {
   const { data: films, isLoading } = useGetFilmsQuery();
   const activeFilter = useAppSelector((state) => state.app.activeFilter);
   const dispatch = useAppDispatch();
 
-  const handleFilterClick = (filter: string) => {
+  const handleFilterClick = (filter: Filter) => {
     dispatch(changeFilter(filter));
   };
 

@@ -1,17 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { Filter } from "../types/filter";
+import { SortType } from "../types/sort";
 
 export interface AppState {
   isOpenFilmDetails: boolean;
   filmCountPerStep: number;
   selectedFilmId: number;
-  activeFilter: string;
+  activeFilter: Filter;
+  activeSort: SortType;
 }
 
 const initialState: AppState = {
   isOpenFilmDetails: false,
   filmCountPerStep: 5,
   selectedFilmId: 0,
-  activeFilter: "all"
+  activeFilter: "all",
+  activeSort: "default"
 };
 
 export const appReducer = createSlice({
@@ -35,6 +39,10 @@ export const appReducer = createSlice({
     changeFilter(state, action) {
       state.activeFilter = action.payload;
       state.filmCountPerStep = 5;
+      state.activeSort = "default";
+    },
+    changeSort(state, action) {
+      state.activeSort = action.payload;
     }
   },
 });
@@ -44,7 +52,8 @@ export const {
   closeFilmDetails,
   incrementFilmCountPerStep,
   addIdSelectedFilmId,
-  changeFilter
+  changeFilter,
+  changeSort
 } = appReducer.actions;
 
 export default appReducer;

@@ -1,6 +1,7 @@
-import { filters } from "../../const";
 import { useAppSelector } from "../../hooks";
 import { useGetFilmsQuery } from "../../services/appApi";
+import getSortedFilms from "../../utils/gerSortedFilms";
+import getFilteredFilms from "../../utils/getFilleredFilms";
 import FilmsEmpty from "../FilmsEmpty/FilmsEmpty";
 import FilmsList from "../FilmsList/FilmsList";
 import Sort from "../Sort/Sort";
@@ -8,22 +9,14 @@ import Sort from "../Sort/Sort";
 function Films() {
   const { data: allFilms, isLoading } = useGetFilmsQuery();
   const activeFilter = useAppSelector((state) => state.app.activeFilter);
-  const filteredFilms = allFilms?.filter((film) => {
-    switch (activeFilter) {
-      case filters[1]:
-        return film.user_details.watchlist;
-      case filters[2]:
-        return film.user_details.already_watched;
-      case filters[3]:
-        return film.user_details.favorite;
-      default:
-        return true;
-    }
-  });
+  const activeSort = useAppSelector((state) => state.app.activeSort);
+  const filteredFilms = allFilms && getFilteredFilms(allFilms, activeFilter);
+  const sortedFilms =
+    filteredFilms && getSortedFilms(filteredFilms, activeSort);
 
   return (
     <>
-      {!isLoading && filteredFilms && filteredFilms?.length > 0 && <Sort />}
+      {!isLoading && filteredFilms && filteredFilms.length > 0 && <Sort />}
       <section className="films">
         {isLoading && (
           <section className="films-list">
@@ -32,21 +25,17 @@ function Films() {
         )}
         {!isLoading && (
           <>
-            {filteredFilms && filteredFilms.length > 0 ? (
-              <FilmsList films={filteredFilms} />
+            {filteredFilms && filteredFilms.length > 0 && sortedFilms ? (
+              <FilmsList films={sortedFilms} />
             ) : (
               <FilmsEmpty />
             )}
-            <FilmsList
-              films={allFilms.slice(0, 2)}
-              title="Top rated"
-              mode="extra"
-            />
-            <FilmsList
-              films={allFilms.slice(0, 2)}
-              title="Most commented"
-              mode="extra"
-            />
+            {allFilms && (
+              <FilmsList films={allFilms} title="Top rated" mode="extra" />
+            )}
+            {allFilms && (
+              <FilmsList films={allFilms} title="Most commented" mode="extra" />
+            )}
           </>
         )}
       </section>

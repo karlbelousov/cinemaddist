@@ -1,4 +1,5 @@
 import { Filter } from "./types/filter";
+import { SortType } from "./types/sort";
 
 export const baseUrl = "https://17.ecmascript.htmlacademy.pro/cinemaddict/";
 export const authorization = "Basic vuciyvuuobib0ii";
@@ -16,3 +17,5 @@ export const UserStatusTitle = {
 };
 
 export const filters: Filter[] = [ "all" , "watchlist", "history" , "favorites"];
+
+export const sorts: SortType[] = ["default", "date", "rating"];
