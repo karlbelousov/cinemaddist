@@ -1,17 +1,20 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { closeFilmDetails } from "../../store/appReducer";
-import { useGetCommentsQuery, useGetFilmsQuery } from "../../services/appApi";
+import { useChangeFilmMutation, useGetCommentsQuery, useGetFilmsQuery } from "../../services/appApi";
 import formatStringToDate from "../../utils/formatStringToDate";
 import formatMinutesToTime from "../../utils/formatMinutesToTime";
 import CommentsList from "../CommentsList/CommentsList";
 import CommentForm from "../CommentForm/CommentForm";
+import clsx from "clsx";
 
 function FilmDetais() {
   const {data: films} = useGetFilmsQuery();
   const selectedFilmId = useAppSelector((state) => state.app.selectedFilmId);
   const film = films?.find((film) => film.id === selectedFilmId);
-  const { data: comments, isLoading } = useGetCommentsQuery(film?.id);
+  const { data: comments, isLoading } = useGetCommentsQuery(film?.id || 1);
+
+  const [ changeFilm ] = useChangeFilmMutation();
 
   const dispatch = useAppDispatch();
   const handleFilmDetaisCloseButtonClick = () => {
@@ -23,6 +26,39 @@ function FilmDetais() {
       dispatch(closeFilmDetails());
     }
   };
+
+  const handleAddToWatchlistButtonClick = async () => {
+    await changeFilm({id: film?.id, body: {
+      comments: film?.comments,
+      film_info: film?.film_info,
+      user_details: {
+        ...film?.user_details,
+        watchlist: !film?.user_details.watchlist
+      }
+    }});
+  };
+
+  const handleMarkAsWatchedButtonClick = async () => {
+    await changeFilm({id: film?.id, body: {
+      comments: film?.comments,
+      film_info: film?.film_info,
+      user_details: {
+        ...film?.user_details,
+        already_watched: !film?.user_details.already_watched
+      },
+    }});
+  };
+
+  const handleMarkAsFavoriteButtonClick = async () => {
+    await changeFilm({id: film?.id, body: {
+      comments: film?.comments,
+      film_info: film?.film_info,
+      user_details: {
+        ...film?.user_details,
+        favorite: !film?.user_details.favorite
+      }
+    }});
+  }
 
   useEffect(() => {
     document.addEventListener("keydown", handleEscapeKeyDown);
@@ -112,25 +148,22 @@ function FilmDetais() {
           <section className="film-details__controls">
             <button
               type="button"
-              className="film-details__control-button film-details__control-button--watchlist"
-              id="watchlist"
-              name="watchlist"
+              className={clsx("film-details__control-button", film?.user_details.watchlist && "film-details__control-button--active", "film-details__control-button--watchlist")}
+              onClick={handleAddToWatchlistButtonClick}
             >
               Add to watchlist
             </button>
             <button
               type="button"
-              className="film-details__control-button film-details__control-button--active film-details__control-button--watched"
-              id="watched"
-              name="watched"
+              className={clsx("film-details__control-button", film?.user_details.already_watched && "film-details__control-button--active", "film-details__control-button--watched")}
+              onClick={handleMarkAsWatchedButtonClick}
             >
               Already watched
             </button>
             <button
               type="button"
-              className="film-details__control-button film-details__control-button--favorite"
-              id="favorite"
-              name="favorite"
+              className={clsx("film-details__control-button", film?.user_details.favorite && "film-details__control-button--active", "film-details__control-button--favorite")}
+              onClick={handleMarkAsFavoriteButtonClick}
             >
               Add to favorites
             </button>

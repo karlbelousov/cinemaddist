@@ -12,14 +12,24 @@ export const appApi = createApi({
             return headers;
         },
     }),
+    tagTypes: ["Films", "Comments"],
     endpoints: (builder) => ({
         getFilms: builder.query<Film[], void>({
-          query: () => "/movies"
+          query: () => "/movies",
+          providesTags: ["Films"]
         }),
-        getComments: builder.query<TComment[], number>({
+        getComments: builder.query<TComment[], Film["id"]>({
           query: (filmId) => `/comments/${filmId}`
+        }),
+        changeFilm: builder.mutation({
+          query: ({id, body}) => ({
+            url: `movies/${id}`,
+            method: "PUT",
+            body
+          }),
+          invalidatesTags: ["Films"]
         })
       }),
 });
 
-export const { useGetFilmsQuery, useGetCommentsQuery } = appApi;
+export const { useGetFilmsQuery, useGetCommentsQuery, useChangeFilmMutation } = appApi;

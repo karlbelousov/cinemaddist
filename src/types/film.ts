@@ -19,7 +19,7 @@ export interface Film {
         description: string
     },
     user_details: {
-        watchlist: string,
+        watchlist: boolean,
         already_watched: boolean,
         watching_date: string,
         favorite: boolean
