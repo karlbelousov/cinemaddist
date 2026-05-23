@@ -1,6 +1,7 @@
 import { Comparator } from "../../const";
 import { useAppSelector } from "../../hooks";
 import { useGetFilmsQuery } from "../../services/appApi";
+import { getActiveFilter, getActiveSort } from "../../store/appReducer";
 import { Film } from "../../types/film";
 import getFilteredFilms from "../../utils/getFilleredFilms";
 import FilmsEmpty from "../FilmsEmpty/FilmsEmpty";
@@ -9,8 +10,8 @@ import Sort from "../Sort/Sort";
 
 function Films() {
   const { data, isLoading } = useGetFilmsQuery();
-  const activeFilter = useAppSelector((state) => state.app.activeFilter);
-  const activeSorting = useAppSelector((state) => state.app.activeSort);
+  const activeFilter = useAppSelector(getActiveFilter);
+  const activeSorting = useAppSelector(getActiveSort);
 
   let allFilms: Film[] = [];
   let topRatedFilms: Film[] = [];

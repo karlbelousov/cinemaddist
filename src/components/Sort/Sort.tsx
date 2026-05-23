@@ -1,10 +1,10 @@
 import clsx from "clsx";
 import { Sorting, SortName } from "../../const";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { changeSort } from "../../store/appReducer";
+import { changeSort, getActiveSort } from "../../store/appReducer";
 
 function Sort() {
-  const activeSort = useAppSelector((state) => state.app.activeSort);
+  const activeSort = useAppSelector(getActiveSort);
   const dispatch = useAppDispatch();
 
   const handleSortButtonClick = (sort: SortName) => {

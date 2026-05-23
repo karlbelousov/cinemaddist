@@ -3,6 +3,7 @@ import FilmCard from "../FilmCard/FilmCard";
 import ShowMoreButton from "../ShowMoreButton/ShowMoreButton";
 import { Film } from "../../types/film";
 import { useAppSelector } from "../../hooks";
+import { getFilmCountPerStep } from "../../store/appReducer";
 
 interface FilmsListProps {
   mode?: string;
@@ -11,12 +12,10 @@ interface FilmsListProps {
 }
 
 function FilmsList({ mode = "", title, films = [] }: FilmsListProps) {
-  const filmCountPerStep = useAppSelector(
-    (state) => state.app.filmCountPerStep
-  );
+  const filmCountPerStep = useAppSelector(getFilmCountPerStep);
   const filmsSlisedPerGroup = films.slice(
     0,
-    Math.min(films.length, filmCountPerStep)
+    Math.min(films.length, filmCountPerStep),
   );
 
   return (

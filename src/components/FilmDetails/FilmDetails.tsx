@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { closeFilmDetails } from "../../store/appReducer";
+import { closeFilmDetails, getSelectedFilmId } from "../../store/appReducer";
 import {
   useChangeFilmMutation,
   useGetCommentsQuery,
@@ -14,7 +14,7 @@ import clsx from "clsx";
 
 function FilmDetais() {
   const { data: films } = useGetFilmsQuery();
-  const selectedFilmId = useAppSelector((state) => state.app.selectedFilmId);
+  const selectedFilmId = useAppSelector(getSelectedFilmId);
   const film = films?.find((film) => film.id === selectedFilmId);
   const { data: comments, isLoading } = useGetCommentsQuery(film?.id || 1);
 

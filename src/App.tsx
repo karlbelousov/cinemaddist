@@ -3,9 +3,10 @@ import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
 import Main from "./components/Main/Main";
 import { useAppSelector } from "./hooks";
+import { getIsOpenFilmDetails } from "./store/appReducer";
 
 function App() {
-  const isOpenFilmDetails = useAppSelector((state) => state.app.isOpenFilmDetails);
+  const isOpenFilmDetails = useAppSelector(getIsOpenFilmDetails);
 
   return (
     <>

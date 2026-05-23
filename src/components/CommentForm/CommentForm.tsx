@@ -3,9 +3,10 @@ import { emotions } from "../../const";
 import { Emotion } from "../../types/comment";
 import { useAddCommentMutation } from "../../services/appApi";
 import { useAppSelector } from "../../hooks";
+import { getSelectedFilmId } from "../../store/appReducer";
 
 function CommentForm() {
-  const selectedFilmId = useAppSelector((state) => state.app.selectedFilmId);
+  const selectedFilmId = useAppSelector(getSelectedFilmId);
   const [emoji, setEmoji] = useState<Emotion>("smile");
   const [comment, setComment] = useState<string>('');
 

@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { changeFilter } from "../../store/appReducer";
+import { changeFilter, getActiveFilter } from "../../store/appReducer";
 import { filters } from "../../const";
 import getCountFilteredFilms from "../../utils/getCountFilteredFilms";
 import { useGetFilmsQuery } from "../../services/appApi";
@@ -8,7 +8,7 @@ import { Filter } from "../../types/filter";
 
 function MainNavigation() {
   const { data: films, isLoading } = useGetFilmsQuery();
-  const activeFilter = useAppSelector((state) => state.app.activeFilter);
+  const activeFilter = useAppSelector(getActiveFilter);
   const dispatch = useAppDispatch();
 
   const handleFilterClick = (filter: Filter) => {
@@ -23,7 +23,7 @@ function MainNavigation() {
           className={clsx(
             "main-navigation__item",
             activeFilter === filter.toLowerCase() &&
-              "main-navigation__item--active"
+              "main-navigation__item--active",
           )}
           onClick={() => handleFilterClick(filter)}
           key={filter}

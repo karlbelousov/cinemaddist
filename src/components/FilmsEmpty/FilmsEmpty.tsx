@@ -1,8 +1,9 @@
 import { useAppSelector } from "../../hooks";
+import { getActiveFilter } from "../../store/appReducer";
 import getFilmsEmptyText from "../../utils/getFilmsEmptyText";
 
 function FilmsEmpty() {
-  const activeFilter = useAppSelector((state) => state.app.activeFilter);
+  const activeFilter = useAppSelector(getActiveFilter);
 
   return (
     <section className="films-list">

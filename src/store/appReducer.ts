@@ -15,12 +15,19 @@ const initialState: AppState = {
   filmCountPerStep: 5,
   selectedFilmId: 0,
   activeFilter: "all",
-  activeSort: "Default"
+  activeSort: "Default",
 };
 
 export const appReducer = createSlice({
   name: "app",
   initialState,
+  selectors: {
+    getIsOpenFilmDetails: (state: AppState) => state.isOpenFilmDetails,
+    getFilmCountPerStep: (state: AppState) => state.filmCountPerStep,
+    getSelectedFilmId: (state: AppState) => state.selectedFilmId,
+    getActiveFilter: (state: AppState) => state.activeFilter,
+    getActiveSort: (state: AppState) => state.activeSort,
+  },
   reducers: {
     openFilmDetails(state) {
       state.isOpenFilmDetails = true;
@@ -43,7 +50,7 @@ export const appReducer = createSlice({
     },
     changeSort(state, action) {
       state.activeSort = action.payload;
-    }
+    },
   },
 });
 
@@ -53,7 +60,15 @@ export const {
   incrementFilmCountPerStep,
   addIdSelectedFilmId,
   changeFilter,
-  changeSort
+  changeSort,
 } = appReducer.actions;
+
+export const {
+  getIsOpenFilmDetails,
+  getFilmCountPerStep,
+  getSelectedFilmId,
+  getActiveFilter,
+  getActiveSort,
+} = appReducer.selectors;
 
 export default appReducer;
