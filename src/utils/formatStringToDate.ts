@@ -1,5 +1,7 @@
+import dayjs from "dayjs";
+
 function formatStringToDate(date: string) {
-    return new Date(date).toLocaleString('en-GB', {day: '2-digit', month: 'long', year: 'numeric'});
-  }
-  
-  export default formatStringToDate;
+  return dayjs(date).format("DD MMMM YYYY");
+}
+
+export default formatStringToDate;

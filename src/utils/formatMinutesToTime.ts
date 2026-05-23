@@ -1,11 +1,10 @@
-function formatMinutesToTime(minutes: number) {
-  const MINUTES_PER_HOUR = 60;
+import dayjs from "dayjs";
+import duration from "dayjs/plugin/duration";
 
-  return minutes < MINUTES_PER_HOUR
-    ? `${minutes}m`
-    : `${Math.floor(minutes / MINUTES_PER_HOUR)}h ${
-        minutes % MINUTES_PER_HOUR
-      }m`;
+dayjs.extend(duration);
+
+function formatMinutesToTime(minutes: number) {
+  return dayjs.duration(minutes, "minutes").format("H[h] mm[m]");
 }
 
 export default formatMinutesToTime;

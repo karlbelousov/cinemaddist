@@ -1,5 +1,6 @@
 import { useDeleteCommentMutation } from "../../services/appApi";
 import { TComment } from "../../types/comment";
+import humanizeDate from "../../utils/humanizeDate";
 
 function Comment({ id, emotion, comment, author, date }: TComment) {
   const [deleteComment, { isLoading }] = useDeleteCommentMutation();
@@ -24,7 +25,7 @@ function Comment({ id, emotion, comment, author, date }: TComment) {
         </p>
         <p className="film-details__comment-info">
           <span className="film-details__comment-author">{author}</span>
-          <span className="film-details__comment-day">{date}</span>
+          <span className="film-details__comment-day">{humanizeDate(date)}</span>
           <button 
             className="film-details__comment-delete"
             onClick={handleDeleteCommentButtonClick}
