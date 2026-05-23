@@ -2,7 +2,7 @@ import { useGetFilmsQuery } from "../../services/appApi";
 import getUserRating from "../../utils/getUserRating";
 
 function Header() {
-  const {films, isLoading } = useGetFilmsQuery();
+  const {data: films, isLoading } = useGetFilmsQuery();
 
   return (
     <header className="header">

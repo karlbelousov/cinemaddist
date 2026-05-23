@@ -1,3 +1,5 @@
+import { Emotion } from "./types/comment";
+import { Film } from "./types/film";
 import { Filter } from "./types/filter";
 import { SortType } from "./types/sort";
 
@@ -16,6 +18,23 @@ export const UserStatusTitle = {
   MOVIE_BUFF: "Movie Buff",
 };
 
-export const filters: Filter[] = [ "all" , "watchlist", "history" , "favorites"];
+export enum Sorting {
+  Default = "default",
+  Rating = "rating",
+  Date = "date",
+  Comment = "comment"
+}
 
-export const sorts: SortType[] = ["default", "date", "rating"];
+export type SortName = keyof typeof Sorting;
+
+export const Comparator: {
+  [key in SortName]: (a: Film, b: Film) => number
+} = {
+  Default: () => 0,
+  Rating: (a, b) => b.film_info.total_rating - a.film_info.total_rating,
+  Comment: (a, b) => b.comments.length - a.comments.length,
+  Date: () => 0
+};
+
+export const filters: Filter[] = [ "all" , "watchlist", "history" , "favorites"];
+export const emotions: Emotion[] = ["smile", "sleeping", "puke", "angry"];

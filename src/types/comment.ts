@@ -1,4 +1,4 @@
-type Emotion = "smile" | "sleeping" | "puke" | "angry";
+export type Emotion = "smile" | "sleeping" | "puke" | "angry";
 
 export interface TComment {
   id: number;

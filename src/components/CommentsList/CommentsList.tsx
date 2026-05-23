@@ -5,19 +5,15 @@ interface CommentsListProps {
   comments: TComment[];
 }
 
-function CommentsList({comments}: CommentsListProps) {
+function CommentsList({ comments }: CommentsListProps) {
   return (
     <>
       <h3 className="film-details__comments-title">
-        Comments <span className="film-details__comments-count">{comments.length}</span>
+        Comments{" "}
+        <span className="film-details__comments-count">{comments.length}</span>
       </h3>
       <ul className="film-details__comments-list">
-        {comments && 
-          comments.map((comment) => (
-            <li className="film-details__comment" key={comment.id}>
-              <Comment {...comment} />
-            </li>
-          ))}
+        {comments && comments.map((comment) => <Comment {...comment} key={comment.id} />)}
       </ul>
     </>
   );

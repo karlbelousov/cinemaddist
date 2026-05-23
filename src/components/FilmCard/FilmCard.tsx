@@ -7,11 +7,11 @@ import formatStringToYear from "../../utils/formatStringToYear";
 import { useChangeFilmMutation } from "../../services/appApi";
 
 function FilmCard(film: Film) {
-  const {id, film_info, comments, user_details } = film;
+  const { id, film_info, comments, user_details } = film;
   const { title, total_rating, release, runtime, genre, poster, description } =
     film_info;
   
-  const [ changeFilm ] = useChangeFilmMutation();
+  const [changeFilm] = useChangeFilmMutation();
 
   const formatDescr = (description: string) => {
     if (description.length > 140) {
@@ -21,6 +21,7 @@ function FilmCard(film: Film) {
   };
 
   const dispatch = useAppDispatch();
+
   const handleFilmCardLinkClick = () => {
     dispatch(openFilmDetails());
     dispatch(addIdSelectedFilmId(id));

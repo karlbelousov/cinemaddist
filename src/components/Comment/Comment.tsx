@@ -1,8 +1,15 @@
+import { useDeleteCommentMutation } from "../../services/appApi";
 import { TComment } from "../../types/comment";
 
-function Comment({ emotion, comment, author, date }: TComment) {
+function Comment({ id, emotion, comment, author, date }: TComment) {
+  const [deleteComment, { isLoading }] = useDeleteCommentMutation();
+
+  const handleDeleteCommentButtonClick = async () => {
+    await deleteComment(id);
+  };
+
   return (
-    <>
+    <li className="film-details__comment">
       <span className="film-details__comment-emoji">
         <img
           src={`./images/emoji/${emotion}.png`}
@@ -18,10 +25,16 @@ function Comment({ emotion, comment, author, date }: TComment) {
         <p className="film-details__comment-info">
           <span className="film-details__comment-author">{author}</span>
           <span className="film-details__comment-day">{date}</span>
-          <button className="film-details__comment-delete">Delete</button>
+          <button 
+            className="film-details__comment-delete"
+            onClick={handleDeleteCommentButtonClick}
+            disabled={isLoading}
+          >
+            {isLoading ? 'Deleting...' : 'Delete'}
+          </button>
         </p>
       </div>
-    </>
+    </li>
   );
 }
 

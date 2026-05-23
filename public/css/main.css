@@ -690,6 +690,16 @@ button {
 .film-details__emoji-item:checked + .film-details__emoji-label {
   opacity: 1;
 }
+.film-details__submit-button {
+  background-color: transparent;
+  color: #fff;
+  border: none;
+  padding: 0;
+  text-decoration: underline;
+  position: absolute;
+  bottom: 20px;
+  right: 0;
+}
 .film-details__comments-wrap {
   width: 630px;
   color: #f6f6f6;

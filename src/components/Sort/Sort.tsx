@@ -1,30 +1,29 @@
 import clsx from "clsx";
-import { sorts } from "../../const";
+import { Sorting, SortName } from "../../const";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { SortType } from "../../types/sort";
 import { changeSort } from "../../store/appReducer";
 
 function Sort() {
   const activeSort = useAppSelector((state) => state.app.activeSort);
   const dispatch = useAppDispatch();
 
-  const handleSortButtonClick = (sort: SortType) => {
+  const handleSortButtonClick = (sort: SortName) => {
     dispatch(changeSort(sort));
   };
 
   return (
     <ul className="sort">
-      {sorts.map((sort) => (
-        <li key={sort}>
+      {(Object.entries(Sorting) as [SortName, Sorting][]).slice(0, 3).map(([name, title]) => (
+        <li key={name}>
           <a
-            href={`#${sort}`}
+            href={`#${title}`}
             className={clsx(
               "sort__button",
-              sort === activeSort && "sort__button--active"
+              name === activeSort && "sort__button--active"
             )}
-            onClick={() => handleSortButtonClick(sort)}
+            onClick={() => handleSortButtonClick(name)}
           >
-            Sort by {sort}
+            Sort by {title}
           </a>
         </li>
       ))}
