@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "../../store";
 import { closeFilmDetails, getSelectedFilmId } from "../../store/appReducer";
 import {
   useChangeFilmMutation,
@@ -79,7 +79,7 @@ function FilmDetais() {
     return () => {
       document.removeEventListener("keydown", handleEscapeKeyDown);
     };
-  }, []);
+  }, [handleEscapeKeyDown]);
 
   return (
     <section className="film-details">

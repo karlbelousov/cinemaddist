@@ -1,5 +1,5 @@
 import { Comparator } from "../../const";
-import { useAppSelector } from "../../hooks";
+import { useAppSelector } from "../../store";
 import { useGetFilmsQuery } from "../../services/appApi";
 import { getActiveFilter, getActiveSort } from "../../store/appReducer";
 import { Film } from "../../types/film";

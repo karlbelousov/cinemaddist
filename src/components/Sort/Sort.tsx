@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { Sorting, SortName } from "../../const";
-import { useAppDispatch, useAppSelector } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "../../store";
 import { changeSort, getActiveSort } from "../../store/appReducer";
 
 function Sort() {

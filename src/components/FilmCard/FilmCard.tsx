@@ -1,10 +1,10 @@
 import clsx from "clsx";
-import { useAppDispatch } from "../../hooks";
 import { addIdSelectedFilmId, openFilmDetails } from "../../store/appReducer";
 import { Film } from "../../types/film";
 import formatMinutesToTime from "../../utils/formatMinutesToTime";
 import formatStringToYear from "../../utils/formatStringToYear";
 import { useChangeFilmMutation } from "../../services/appApi";
+import { useAppDispatch } from "../../store";
 
 function FilmCard(film: Film) {
   const { id, film_info, comments, user_details } = film;

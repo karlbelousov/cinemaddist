@@ -1,4 +1,4 @@
-import { useAppSelector } from "../../hooks";
+import { useAppSelector } from "../../store";
 import { getActiveFilter } from "../../store/appReducer";
 import getFilmsEmptyText from "../../utils/getFilmsEmptyText";
 

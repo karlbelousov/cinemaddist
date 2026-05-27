@@ -2,7 +2,7 @@ import clsx from "clsx";
 import FilmCard from "../FilmCard/FilmCard";
 import ShowMoreButton from "../ShowMoreButton/ShowMoreButton";
 import { Film } from "../../types/film";
-import { useAppSelector } from "../../hooks";
+import { useAppSelector } from "../../store";
 import { getFilmCountPerStep } from "../../store/appReducer";
 
 interface FilmsListProps {

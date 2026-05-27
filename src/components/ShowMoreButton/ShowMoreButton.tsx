@@ -1,4 +1,4 @@
-import { useAppDispatch } from "../../hooks";
+import { useAppDispatch } from "../../store";
 import { incrementFilmCountPerStep } from "../../store/appReducer";
 
 function ShowMoreButton() {

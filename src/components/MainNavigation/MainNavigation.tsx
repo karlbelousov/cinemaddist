@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { useAppDispatch, useAppSelector } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "../../store";
 import { changeFilter, getActiveFilter } from "../../store/appReducer";
 import { filters } from "../../const";
 import getCountFilteredFilms from "../../utils/getCountFilteredFilms";

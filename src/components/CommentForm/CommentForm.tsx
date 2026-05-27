@@ -2,8 +2,8 @@ import { FormEvent, useState } from "react";
 import { emotions } from "../../const";
 import { Emotion } from "../../types/comment";
 import { useAddCommentMutation } from "../../services/appApi";
-import { useAppSelector } from "../../hooks";
 import { getSelectedFilmId } from "../../store/appReducer";
+import { useAppSelector } from "../../store";
 
 function CommentForm() {
   const selectedFilmId = useAppSelector(getSelectedFilmId);
